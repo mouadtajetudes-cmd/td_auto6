@@ -4,6 +4,7 @@ namespace App;
 class MySQLQueryBuilder implements QueryBuilderInterface {
     private $table;
     private $columns = [];
+    private $conditions = [];
     private $condition;
 
     public function table(string $table) : self {
@@ -17,9 +18,11 @@ class MySQLQueryBuilder implements QueryBuilderInterface {
     }
 
     public function where(string $condition) : self {
-        $this->condition = $condition;
+        $this->conditions[] = $condition;
         return $this;
     }
+
+
 
     public function build() : string {
         if (empty($this->table)) {
@@ -28,11 +31,12 @@ class MySQLQueryBuilder implements QueryBuilderInterface {
         if (empty($this->columns)) {
             throw new \Exception("At least one column must be selected.");
         }
-        if (empty($this->condition)) {
+        if (empty($this->conditions)) {
             throw new \Exception("Where condition is required.");
         }
 
         $columns = implode(", ", $this->columns);
-        return "SELECT {$columns} FROM {$this->table} WHERE {$this->condition};";
+        $conditions = implode(" AND ", $this->conditions);
+        return "SELECT {$columns} FROM {$this->table} WHERE {$conditions};";
     }
 }
