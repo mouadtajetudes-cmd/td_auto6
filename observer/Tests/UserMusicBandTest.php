@@ -28,10 +28,8 @@ class UserMusicBandTest extends TestCase
 
         $this->assertTrue($albert->isNotified());
         $this->assertTrue($michelle->isNotified());
-        $this->assertFalse($yves->isNotified()); // y'a detach pour yves, il ne doit pas être notifié
-        // $this->assertFalse($albert->isNotified());
-        // $this->assertTrue($michelle->isNotified());
-        // $this->assertTrue($yves->isNotified());
+        $this->assertFalse($yves->isNotified()); 
+
     }
 
 }
