@@ -26,9 +26,12 @@ class UserMusicBandTest extends TestCase
 
         $band->addNewConcertDate('19/11/2027.', 'Bercy');
 
-        $this->assertFalse($albert->isNotified());
+        $this->assertTrue($albert->isNotified());
         $this->assertTrue($michelle->isNotified());
-        $this->assertTrue($yves->isNotified());
+        $this->assertFalse($yves->isNotified()); // y'a detach pour yves, il ne doit pas être notifié
+        // $this->assertFalse($albert->isNotified());
+        // $this->assertTrue($michelle->isNotified());
+        // $this->assertTrue($yves->isNotified());
     }
 
 }
